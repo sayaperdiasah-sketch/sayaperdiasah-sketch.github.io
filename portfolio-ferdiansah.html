@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Moh. Ferdiansah — IoT & Embedded Engineer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy:   #050d1a;
+      --navy2:  #0a1628;
+      --card:   #0d1e36;
+      --border: #1a3356;
+      --cyan:   #00d4ff;
+      --amber:  #ffb830;
+      --green:  #39d98a;
+      --purple: #8b5cf6;
+      --white:  #f0f6ff;
+      --muted:  #6b88ab;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Space Grotesk', sans-serif; background: var(--navy); color: var(--white); overflow-x: hidden; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1rem 6%;
+      background: rgba(5,13,26,0.88); backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .logo { font-family: 'JetBrains Mono', monospace; font-size: 1rem; font-weight: 700; color: var(--cyan); }
+    .logo span { color: var(--amber); }
+    nav ul { list-style: none; display: flex; gap: 1.8rem; }
+    nav a { text-decoration: none; font-size: 0.82rem; font-weight: 500; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; transition: color .2s; }
+    nav a:hover { color: var(--cyan); }
+
+    /* ── HERO ── */
+    #hero {
+      position: relative; min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 9rem 6% 5rem; overflow: hidden;
+    }
+    canvas#circuit { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .4; pointer-events: none; }
+
+    /* floating orbs */
+    .orb {
+      position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none; animation: drift 8s ease-in-out infinite alternate;
+    }
+    .orb1 { width: 420px; height: 420px; background: rgba(0,212,255,.12); top: -80px; right: -100px; animation-delay: 0s; }
+    .orb2 { width: 300px; height: 300px; background: rgba(139,92,246,.1); bottom: 60px; left: -80px; animation-delay: -3s; }
+    .orb3 { width: 200px; height: 200px; background: rgba(255,184,48,.08); top: 40%; left: 40%; animation-delay: -5s; }
+    @keyframes drift { from { transform: translate(0,0) scale(1); } to { transform: translate(30px,20px) scale(1.08); } }
+
+    .hero-content { position: relative; z-index: 2; max-width: 780px; }
+    .eyebrow {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.78rem;
+      color: var(--cyan); letter-spacing: .18em; text-transform: uppercase;
+      margin-bottom: 1.2rem; display: flex; align-items: center; gap: .6rem;
+      opacity: 0; animation: fadeUp .6s .2s forwards;
+    }
+    .eyebrow::before { content: ''; width: 28px; height: 2px; background: var(--cyan); }
+
+    h1 { font-size: clamp(2.6rem,6vw,5rem); font-weight: 700; line-height: 1.06; letter-spacing: -.03em; opacity: 0; animation: fadeUp .6s .35s forwards; }
+    .glitch { position: relative; color: var(--cyan); display: inline-block; }
+    .glitch::before, .glitch::after {
+      content: attr(data-text); position: absolute; top: 0; left: 0; width: 100%;
+    }
+    .glitch::before { color: var(--amber); clip-path: polygon(0 0,100% 0,100% 35%,0 35%); animation: glitch1 3s infinite; }
+    .glitch::after  { color: var(--purple); clip-path: polygon(0 65%,100% 65%,100% 100%,0 100%); animation: glitch2 3s infinite; }
+    @keyframes glitch1 { 0%,90%,100%{transform:translate(0)} 92%{transform:translate(-3px,-1px)} 94%{transform:translate(2px,1px)} 96%{transform:translate(0)} }
+    @keyframes glitch2 { 0%,90%,100%{transform:translate(0)} 92%{transform:translate(3px,1px)}  94%{transform:translate(-2px,-1px)} 96%{transform:translate(0)} }
+
+    .tagline { margin-top:1.4rem; font-size:1.1rem; color:var(--muted); line-height:1.7; max-width:520px; opacity:0; animation:fadeUp .6s .5s forwards; }
+    .tagline em { color:var(--amber); font-style:normal; font-weight:600; }
+
+    /* avatar slot */
+    .avatar-wrap {
+      position: absolute; right: 6%; top: 50%; transform: translateY(-50%);
+      z-index: 2; opacity: 0; animation: fadeUp .7s .6s forwards;
+    }
+    @media(max-width:900px){ .avatar-wrap { display:none; } }
+    .avatar-ring {
+      width: 220px; height: 220px; border-radius: 50%;
+      border: 2px solid var(--cyan);
+      box-shadow: 0 0 40px rgba(0,212,255,.25), inset 0 0 40px rgba(0,212,255,.05);
+      overflow: hidden; position: relative;
+      animation: pulse-ring 3s ease-in-out infinite;
+    }
+    @keyframes pulse-ring { 0%,100%{box-shadow:0 0 30px rgba(0,212,255,.2)} 50%{box-shadow:0 0 60px rgba(0,212,255,.45)} }
+    .avatar-ring img { width:100%; height:100%; object-fit:cover; }
+    .avatar-placeholder {
+      width:100%; height:100%; display:flex; flex-direction:column;
+      align-items:center; justify-content:center; background:var(--card);
+      gap:.4rem;
+    }
+    .avatar-placeholder span { font-size:3rem; }
+    .avatar-placeholder p { font-family:'JetBrains Mono',monospace; font-size:.65rem; color:var(--muted); text-align:center; padding:0 .8rem; }
+
+    .hero-cta { margin-top:2.2rem; display:flex; gap:1rem; flex-wrap:wrap; opacity:0; animation:fadeUp .6s .65s forwards; }
+    .btn { display:inline-block; padding:.72rem 1.7rem; border-radius:4px; font-weight:600; font-size:.88rem; text-decoration:none; transition:all .2s; cursor:pointer; letter-spacing:.03em; }
+    .btn-primary { background:var(--cyan); color:var(--navy); }
+    .btn-primary:hover { background:#33ddff; transform:translateY(-2px); box-shadow:0 8px 24px rgba(0,212,255,.35); }
+    .btn-outline { border:1.5px solid var(--border); color:var(--white); background:transparent; }
+    .btn-outline:hover { border-color:var(--cyan); color:var(--cyan); }
+
+    /* floating badges */
+    .badges { position:absolute; bottom:2.5rem; left:6%; display:flex; gap:.7rem; flex-wrap:wrap; z-index:2; }
+    .badge {
+      font-family:'JetBrains Mono',monospace; font-size:.68rem;
+      padding:.28rem .75rem; border-radius:3px; border:1px solid;
+      opacity:0; animation:fadeChip .4s forwards;
+      display:flex; align-items:center; gap:.35rem;
+    }
+    .badge::before { content:''; width:6px; height:6px; border-radius:50%; background:currentColor; animation:blink 2s infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+    .badge:nth-child(1){color:var(--cyan);border-color:rgba(0,212,255,.3);animation-delay:.8s}
+    .badge:nth-child(2){color:var(--amber);border-color:rgba(255,184,48,.3);animation-delay:1s}
+    .badge:nth-child(3){color:var(--green);border-color:rgba(57,217,138,.3);animation-delay:1.2s}
+    .badge:nth-child(4){color:var(--purple);border-color:rgba(139,92,246,.3);animation-delay:1.4s}
+    @keyframes fadeChip { to{opacity:1;transform:translateY(0)} from{opacity:0;transform:translateY(8px)} }
+    @keyframes fadeUp   { to{opacity:1;transform:translateY(0)} from{opacity:0;transform:translateY(22px)} }
+
+    /* ── SECTIONS ── */
+    section { padding:6rem 6%; }
+    .sec-label { font-family:'JetBrains Mono',monospace; font-size:.72rem; color:var(--cyan); letter-spacing:.2em; text-transform:uppercase; margin-bottom:.5rem; }
+    h2 { font-size:clamp(1.8rem,3.5vw,2.5rem); font-weight:700; letter-spacing:-.02em; margin-bottom:.4rem; }
+    .divider { width:48px; height:3px; border-radius:2px; background:linear-gradient(90deg,var(--cyan),var(--purple)); margin-bottom:3rem; }
+
+    /* ── ABOUT ── */
+    #about { background:var(--navy2); }
+    .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:start; }
+    @media(max-width:768px){ .about-grid{grid-template-columns:1fr;} }
+    .about-text p { color:var(--muted); line-height:1.8; font-size:.97rem; margin-bottom:1rem; }
+    .about-text p strong { color:var(--white); }
+    .stat-row { display:flex; gap:2rem; margin-top:1.8rem; flex-wrap:wrap; }
+    .stat-num { font-family:'JetBrains Mono',monospace; font-size:1.9rem; font-weight:700; color:var(--cyan); }
+    .stat-desc { font-size:.78rem; color:var(--muted); margin-top:.15rem; }
+
+    /* foto profil / alat utama */
+    .about-media { display:flex; flex-direction:column; gap:1rem; }
+    .media-slot {
+      border:1.5px dashed var(--border); border-radius:10px; overflow:hidden;
+      position:relative; background:var(--card);
+      transition:border-color .25s;
+    }
+    .media-slot:hover { border-color:var(--cyan); }
+    .media-slot img, .media-slot video { width:100%; height:100%; object-fit:cover; display:block; }
+    .slot-tall { height:240px; }
+    .slot-short { height:140px; }
+    .slot-placeholder {
+      position:absolute; inset:0; display:flex; flex-direction:column;
+      align-items:center; justify-content:center; gap:.5rem;
+    }
+    .slot-placeholder span { font-size:2.2rem; }
+    .slot-placeholder p { font-family:'JetBrains Mono',monospace; font-size:.65rem; color:var(--muted); text-align:center; padding:0 1rem; }
+    .slot-filename {
+      position:absolute; bottom:0; left:0; right:0;
+      background:rgba(5,13,26,.85); backdrop-filter:blur(4px);
+      font-family:'JetBrains Mono',monospace; font-size:.62rem;
+      color:var(--amber); padding:.35rem .7rem; text-align:center;
+    }
+
+    /* terminal */
+    .terminal { background:#030a14; border:1px solid var(--border); border-radius:10px; overflow:hidden; font-family:'JetBrains Mono',monospace; font-size:.8rem; }
+    .t-bar { background:#0a1628; padding:.65rem 1rem; display:flex; align-items:center; gap:.4rem; }
+    .dot { width:9px; height:9px; border-radius:50%; }
+    .dot.r{background:#ff5f57} .dot.y{background:#febc2e} .dot.g{background:#28c840}
+    .t-body { padding:1.2rem; line-height:2; }
+    .t-prompt{color:var(--cyan)} .t-cmd{color:var(--white)} .t-out{color:var(--green)} .t-muted{color:var(--muted)}
+
+    /* ── SKILLS ── */
+    #skills { background:var(--navy); }
+    .skill-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:1.2rem; }
+    .skill-card {
+      background:var(--card); border:1px solid var(--border); border-radius:8px; padding:1.5rem;
+      transition:border-color .25s, transform .25s, box-shadow .25s;
+      position:relative; overflow:hidden;
+    }
+    .skill-card::before {
+      content:''; position:absolute; top:0; left:0; right:0; height:2px;
+      background:linear-gradient(90deg,var(--cyan),var(--purple)); transform:scaleX(0); transform-origin:left;
+      transition:transform .3s;
+    }
+    .skill-card:hover { border-color:var(--cyan); transform:translateY(-5px); box-shadow:0 12px 32px rgba(0,212,255,.12); }
+    .skill-card:hover::before { transform:scaleX(1); }
+    .skill-icon { font-size:1.8rem; margin-bottom:.8rem; }
+    .skill-card h3 { font-size:.97rem; font-weight:600; margin-bottom:.4rem; }
+    .skill-card p { color:var(--muted); font-size:.82rem; line-height:1.6; }
+    .skill-tags { display:flex; flex-wrap:wrap; gap:.35rem; margin-top:.9rem; }
+    .tag { font-family:'JetBrains Mono',monospace; font-size:.68rem; padding:.2rem .55rem; border-radius:3px; border:1px solid; }
+    .tc{color:var(--cyan);border-color:rgba(0,212,255,.3);background:rgba(0,212,255,.06)}
+    .ta{color:var(--amber);border-color:rgba(255,184,48,.3);background:rgba(255,184,48,.06)}
+    .tg{color:var(--green);border-color:rgba(57,217,138,.3);background:rgba(57,217,138,.06)}
+    .tp{color:var(--purple);border-color:rgba(139,92,246,.3);background:rgba(139,92,246,.06)}
+
+    /* ── PROJECTS ── */
+    #projects { background:var(--navy2); }
+    .proj-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:1.5rem; }
+    .proj-card {
+      background:var(--card); border:1px solid var(--border); border-radius:10px; overflow:hidden;
+      display:flex; flex-direction:column;
+      transition:border-color .25s, transform .25s, box-shadow .25s;
+    }
+    .proj-card:hover { border-color:var(--amber); transform:translateY(-5px); box-shadow:0 12px 32px rgba(255,184,48,.1); }
+
+    /* media thumb — foto/video project */
+    .proj-thumb {
+      height:190px; position:relative; overflow:hidden; background:var(--navy2);
+      display:flex; align-items:center; justify-content:center;
+    }
+    .proj-thumb img, .proj-thumb video { width:100%; height:100%; object-fit:cover; transition:transform .4s; }
+    .proj-card:hover .proj-thumb img,
+    .proj-card:hover .proj-thumb video { transform:scale(1.05); }
+    .proj-thumb-placeholder {
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      gap:.5rem; width:100%; height:100%;
+    }
+    .proj-thumb-placeholder span { font-size:3rem; }
+    .proj-thumb-placeholder p { font-family:'JetBrains Mono',monospace; font-size:.62rem; color:var(--muted); text-align:center; padding:0 1rem; }
+    .proj-filename {
+      position:absolute; top:.6rem; right:.6rem;
+      background:rgba(5,13,26,.85); backdrop-filter:blur(4px);
+      font-family:'JetBrains Mono',monospace; font-size:.6rem;
+      color:var(--amber); padding:.25rem .55rem; border-radius:3px;
+      border:1px solid rgba(255,184,48,.3);
+    }
+    .proj-overlay {
+      position:absolute; inset:0;
+      background:linear-gradient(to top, var(--card) 0%, transparent 50%);
+    }
+
+    .proj-body { padding:1.3rem; flex:1; display:flex; flex-direction:column; }
+    .proj-body h3 { font-size:1rem; font-weight:600; margin-bottom:.4rem; }
+    .proj-body p { color:var(--muted); font-size:.85rem; line-height:1.6; flex:1; }
+    .proj-foot { display:flex; gap:.4rem; flex-wrap:wrap; margin-top:1rem; }
+
+    /* ── CONTACT ── */
+    #contact { background:var(--navy); }
+    .contact-inner { max-width:600px; }
+    .contact-inner p { color:var(--muted); line-height:1.7; margin-bottom:2rem; font-size:.97rem; }
+    .contact-links { display:flex; gap:.9rem; flex-wrap:wrap; }
+    .contact-link {
+      display:flex; align-items:center; gap:.5rem; padding:.68rem 1.4rem;
+      border-radius:4px; border:1.5px solid var(--border); color:var(--white);
+      text-decoration:none; font-size:.86rem; font-weight:500; transition:all .2s;
+    }
+    .contact-link:hover { border-color:var(--cyan); color:var(--cyan); transform:translateY(-2px); }
+    .contact-link svg { width:15px; height:15px; flex-shrink:0; }
+
+    /* ── FOOTER ── */
+    footer { text-align:center; padding:2rem 6%; border-top:1px solid var(--border); font-family:'JetBrains Mono',monospace; font-size:.72rem; color:var(--muted); }
+    footer span { color:var(--cyan); }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal { opacity:0; transform:translateY(26px); transition:opacity .55s ease, transform .55s ease; }
+    .reveal.visible { opacity:1; transform:none; }
+
+    /* ── PANDUAN FILE (hidden in production) ── */
+    .file-guide {
+      background: #0a1628; border: 1px solid var(--amber);
+      border-radius: 8px; padding: 1.4rem 1.6rem; margin-bottom: 3rem;
+      font-family: 'JetBrains Mono', monospace; font-size: .78rem; line-height: 1.9;
+    }
+    .file-guide h4 { color: var(--amber); margin-bottom: .6rem; font-size: .82rem; }
+    .file-guide .fg-row { display:flex; gap:1rem; align-items:baseline; flex-wrap:wrap; }
+    .file-guide .fg-name { color: var(--cyan); min-width:220px; }
+    .file-guide .fg-desc { color: var(--muted); }
+    .file-guide .fg-type { color: var(--green); font-size:.7rem; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">MF<span>.</span>dev</div>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <canvas id="circuit"></canvas>
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+
+  <div class="hero-content">
+    <div class="eyebrow">IoT Engineer · Embedded Systems · Builder</div>
+    <h1>
+      Moh. Ferdiansah<br>
+      <span class="glitch" data-text="builds things">builds things</span><br>
+      that work.
+    </h1>
+    <p class="tagline">
+      Dari <em>rangkaian elektronik</em> hingga antarmuka pengguna —
+      saya merancang logika kendali IoT, program mikrokontroler,
+      dan membangun aplikasi yang bisa langsung dipakai.
+    </p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn btn-primary">Lihat Projects</a>
+      <a href="#contact" class="btn btn-outline">Hubungi Saya</a>
+    </div>
+  </div>
+
+  <!-- FOTO PROFIL -->
+  <div class="avatar-wrap">
+    <div class="avatar-ring">
+      <!-- GANTI: rename foto kamu jadi "foto-profil.jpg" lalu upload ke folder yang sama -->
+      <img src="foto-profil.jpg" alt="Moh. Ferdiansah"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="avatar-placeholder" style="display:none">
+        <span>🧑‍💻</span>
+        <p>Upload foto kamu<br><b>foto-profil.jpg</b></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="badges">
+    <div class="badge">IoT & Robotics</div>
+    <div class="badge">Embedded C</div>
+    <div class="badge">Android Studio</div>
+    <div class="badge">Laravel</div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="reveal">
+    <p class="sec-label">Tentang Saya</p>
+    <h2>Engineer di dua dunia</h2>
+    <div class="divider"></div>
+  </div>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p>Saya <strong>Moh. Ferdiansah</strong>, seorang engineer yang bekerja di persimpangan <strong>hardware dan software</strong>. Kekuatan utama saya ada di desain logika kendali untuk sistem IoT dan robot ringan.</p>
+      <p>Di sisi software, saya nyaman mengerjakan <strong>alur UI/UX dan frontend</strong> — baik di Android maupun web. Saya bisa membaca desain dan mengeksekusinya menjadi interface yang berfungsi, meski desain visual bukan fokus utama saya.</p>
+      <p>Saya terus berkembang di area backend deployment dan integrasi API — karena saya percaya engineer yang baik tahu batasannya dan terus belajar.</p>
+      <div class="stat-row">
+        <div class="stat">
+          <div class="stat-num">IoT</div>
+          <div class="stat-desc">Spesialisasi utama</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">3+</div>
+          <div class="stat-desc">Domain dikuasai</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">∞</div>
+          <div class="stat-desc">Terus belajar</div>
+        </div>
+      </div>
+
+      <div class="terminal" style="margin-top:1.8rem">
+        <div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div><span style="margin-left:.6rem;color:var(--muted);font-size:.68rem">ferdi@portfolio ~</span></div>
+        <div class="t-body">
+          <div><span class="t-prompt">$ </span><span class="t-cmd">cat skills.json</span></div>
+          <div class="t-out">{ "strong":  ["IoT","Robotics","Embedded C","Frontend"] }</div>
+          <div class="t-out">{ "growing": ["Laravel deploy","REST API","UI Design"] }</div>
+          <div><span class="t-prompt">$ </span><span class="t-cmd">git status</span></div>
+          <div class="t-muted">On branch: <span style="color:var(--green)">main</span> — open to work ✓</div>
+          <div><span class="t-prompt">$ </span><span class="t-cmd">_</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOTO ALAT / WORKSPACE -->
+    <div class="about-media reveal">
+      <div class="media-slot slot-tall">
+        <!-- GANTI: rename foto alat/robot utama kamu jadi "alat-utama.jpg" -->
+        <img src="alat-utama.jpg" alt="Alat utama"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="slot-placeholder" style="display:none">
+          <span>🔌</span>
+          <p>Foto alat / robot utama kamu</p>
+        </div>
+        <div class="slot-filename">📁 alat-utama.jpg</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+        <div class="media-slot slot-short">
+          <!-- GANTI: rename jadi "workspace.jpg" -->
+          <img src="workspace.jpg" alt="Workspace"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="slot-placeholder" style="display:none">
+            <span>🛠️</span>
+            <p>Foto workspace</p>
+          </div>
+          <div class="slot-filename">📁 workspace.jpg</div>
+        </div>
+        <div class="media-slot slot-short">
+          <!-- GANTI: rename jadi "komponen.jpg" -->
+          <img src="komponen.jpg" alt="Komponen"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="slot-placeholder" style="display:none">
+            <span>⚙️</span>
+            <p>Foto komponen</p>
+          </div>
+          <div class="slot-filename">📁 komponen.jpg</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="reveal">
+    <p class="sec-label">Keahlian</p>
+    <h2>Dari chip ke layar</h2>
+    <div class="divider"></div>
+  </div>
+  <div class="skill-grid">
+    <div class="skill-card reveal">
+      <div class="skill-icon">🔌</div>
+      <h3>IoT & Embedded Systems</h3>
+      <p>Merancang rangkaian logika dan sistem kendali untuk perangkat IoT — ini keahlian inti saya.</p>
+      <div class="skill-tags">
+        <span class="tag tc">Arduino</span><span class="tag tc">ESP32</span>
+        <span class="tag tc">Embedded C</span><span class="tag tc">Sensor</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-icon">🤖</div>
+      <h3>Robotika</h3>
+      <p>Membangun robot ringan dengan logika kendali yang efisien dan responsif.</p>
+      <div class="skill-tags">
+        <span class="tag ta">Motor Control</span><span class="tag ta">Servo</span>
+        <span class="tag ta">Sensor Array</span><span class="tag ta">Logic Design</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-icon">📱</div>
+      <h3>Android & Frontend</h3>
+      <p>Membuat UI Android dan web frontend. Kuat di implementasi alur & layout, terus berkembang di sisi desain visual.</p>
+      <div class="skill-tags">
+        <span class="tag tg">Android Studio</span><span class="tag tg">XML Layout</span>
+        <span class="tag tg">HTML/CSS</span><span class="tag tg">UI Flow</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-icon">🌐</div>
+      <h3>Web Backend</h3>
+      <p>Familiar dengan Laravel untuk membangun sistem web. Sedang memperdalam deployment dan integrasi API.</p>
+      <div class="skill-tags">
+        <span class="tag tp">Laravel</span><span class="tag tp">PHP</span>
+        <span class="tag tp">MySQL</span><span class="tag tp">Belajar deploy</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="reveal">
+    <p class="sec-label">Projects</p>
+    <h2>Yang sudah dibuat</h2>
+    <div class="divider"></div>
+  </div>
+
+  <div class="proj-grid">
+
+    <!-- PROJECT 1 — IoT/Robot -->
+    <div class="proj-card reveal">
+      <div class="proj-thumb">
+        <!-- GANTI: rename jadi "project-iot.jpg" atau "project-iot.mp4" untuk video -->
+        <img src="project-iot.jpg" alt="Project IoT"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="proj-thumb-placeholder" style="display:none">
+          <span>🤖</span>
+          <p>Foto / video project IoT atau robot</p>
+        </div>
+        <div class="proj-overlay"></div>
+        <div class="proj-filename">📁 project-iot.jpg / .mp4</div>
+      </div>
+      <div class="proj-body">
+        <h3>Project IoT / Robot</h3>
+        <p>Tulis deskripsi singkat project ini — apa yang dibuat, masalah apa yang diselesaikan, teknologi apa yang dipakai.</p>
+        <div class="proj-foot">
+          <span class="tag tc">Arduino/ESP32</span>
+          <span class="tag ta">Sensor</span>
+          <span class="tag tg">Embedded C</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECT 2 — Android -->
+    <div class="proj-card reveal">
+      <div class="proj-thumb">
+        <!-- GANTI: rename jadi "project-android.jpg" atau screenshot apk kamu -->
+        <img src="project-android.jpg" alt="Project Android"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="proj-thumb-placeholder" style="display:none">
+          <span>📱</span>
+          <p>Screenshot aplikasi Android kamu</p>
+        </div>
+        <div class="proj-overlay"></div>
+        <div class="proj-filename">📁 project-android.jpg</div>
+      </div>
+      <div class="proj-body">
+        <h3>Aplikasi Android</h3>
+        <p>Tulis deskripsi aplikasi Android yang pernah kamu buat — fitur utamanya apa, untuk siapa, dan bagaimana cara kerjanya.</p>
+        <div class="proj-foot">
+          <span class="tag tg">Android Studio</span>
+          <span class="tag tg">Java</span>
+          <span class="tag tp">UI/UX</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECT 3 — Web/Laravel -->
+    <div class="proj-card reveal">
+      <div class="proj-thumb">
+        <!-- GANTI: rename jadi "project-web.jpg" atau screenshot web kamu -->
+        <img src="project-web.jpg" alt="Project Web"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="proj-thumb-placeholder" style="display:none">
+          <span>🌐</span>
+          <p>Screenshot website / web app kamu</p>
+        </div>
+        <div class="proj-overlay"></div>
+        <div class="proj-filename">📁 project-web.jpg</div>
+      </div>
+      <div class="proj-body">
+        <h3>Project Web / Laravel</h3>
+        <p>Tulis deskripsi project web yang pernah kamu kerjakan — sistem apa, fitur apa, dan apa yang kamu pelajari.</p>
+        <div class="proj-foot">
+          <span class="tag tp">Laravel</span>
+          <span class="tag tp">PHP</span>
+          <span class="tag tg">Frontend</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner reveal">
+    <p class="sec-label">Kontak</p>
+    <h2>Mari ngobrol</h2>
+    <div class="divider"></div>
+    <p>Punya project IoT, butuh developer Android, atau mau diskusi soal embedded system? Saya terbuka untuk kolaborasi, freelance, maupun kesempatan kerja.</p>
+    <div class="contact-links">
+      <a href="mailto:emailkamu@gmail.com" class="contact-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Email
+      </a>
+      <a href="https://github.com/usernamekamu" target="_blank" class="contact-link">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+        GitHub
+      </a>
+      <a href="https://linkedin.com/in/usernamekamu" target="_blank" class="contact-link">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Built by <span>Moh. Ferdiansah</span> · 2025 · <span style="color:var(--muted)">IoT Engineer</span></p>
+</footer>
+
+<script>
+/* ── Circuit Canvas ── */
+const canvas = document.getElementById('circuit');
+const ctx = canvas.getContext('2d');
+let W, H, nodes=[], lines=[];
+function resize(){
+  W=canvas.width=canvas.offsetWidth;
+  H=canvas.height=canvas.offsetHeight;
+  init();
+}
+function init(){
+  nodes=[]; lines=[];
+  const cols=Math.ceil(W/70), rows=Math.ceil(H/70);
+  for(let r=0;r<=rows;r++) for(let c=0;c<=cols;c++)
+    nodes.push({x:c*70+(Math.random()-.5)*14, y:r*70+(Math.random()-.5)*14, p:Math.random(), s:.004+Math.random()*.008});
+  const C=cols+1;
+  for(let i=0;i<nodes.length;i++){
+    const r=Math.floor(i/C),c=i%C;
+    if(c<cols&&Math.random()>.2) lines.push([i,i+1]);
+    if(r<rows&&Math.random()>.2) lines.push([i,i+C]);
+  }
+}
+function draw(){
+  ctx.clearRect(0,0,W,H);
+  nodes.forEach(n=>n.p=(n.p+n.s)%1);
+  lines.forEach(([a,b])=>{
+    const na=nodes[a],nb=nodes[b];
+    ctx.beginPath(); ctx.moveTo(na.x,na.y); ctx.lineTo(nb.x,nb.y);
+    ctx.strokeStyle='rgba(0,212,255,0.1)'; ctx.lineWidth=1; ctx.stroke();
+  });
+  nodes.forEach(n=>{
+    const a=.25+.75*Math.abs(Math.sin(n.p*Math.PI));
+    ctx.beginPath(); ctx.arc(n.x,n.y,2,0,Math.PI*2);
+    ctx.fillStyle=`rgba(0,212,255,${a*.65})`; ctx.fill();
+  });
+  requestAnimationFrame(draw);
+}
+window.addEventListener('resize',resize);
+resize(); draw();
+
+/* ── Scroll Reveal ── */
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
