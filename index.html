@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Moh. Ferdiansah — IoT & Embedded Engineer</title>
+  <title>Moh. Ferdiansah — IoT Learner</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <style>
+    /* ── Reset & Variables ── */
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     :root{
       --bg:       #0c0f14;
@@ -23,7 +24,7 @@
     html{scroll-behavior:smooth}
     body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--white);overflow-x:hidden}
 
-    /* ── NAV ── */
+    /* ── Nav ── */
     nav{
       position:fixed;top:0;left:0;right:0;z-index:200;
       display:flex;justify-content:space-between;align-items:center;
@@ -41,7 +42,7 @@
       border-radius:20px;color:var(--gold);
     }
 
-    /* ── HERO ── */
+    /* ── Hero ── */
     #hero{
       position:relative;min-height:100vh;
       display:grid;grid-template-columns:1fr 1fr;
@@ -81,7 +82,7 @@
     h1 em{color:var(--gold);font-style:normal}
     .hero-desc{
       margin-top:1.6rem;font-size:.95rem;color:var(--muted2);
-      line-height:1.8;max-width:400px;
+      line-height:1.8;max-width:450px;
       opacity:0;animation:fadeUp .6s .6s forwards;
     }
     .hero-desc strong{color:var(--white)}
@@ -142,7 +143,7 @@
       background:rgba(12,15,20,.6);backdrop-filter:blur(8px);
     }
 
-    /* ── ABOUT ── */
+    /* ── About ── */
     #about{padding:7rem 5%;background:var(--bg2)}
     .sec-eyebrow{
       font-family:'JetBrains Mono',monospace;font-size:.7rem;
@@ -196,7 +197,7 @@
       color:var(--gold);padding:.3rem .6rem;text-align:center;
     }
 
-    /* ── SKILLS ── */
+    /* ── Skills ── */
     #skills{padding:7rem 5%;background:var(--bg)}
     .skill-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;border:1px solid var(--border)}
     .skill-card{
@@ -228,7 +229,7 @@
     .ts{color:var(--sage);border-color:rgba(122,184,154,.25);background:rgba(122,184,154,.05)}
     .tw{color:var(--muted2);border-color:rgba(143,160,176,.2);background:rgba(143,160,176,.04)}
 
-    /* ── PROJECTS ── */
+    /* ── Projects ── */
     #projects{padding:7rem 5%;background:var(--bg2)}
     .slider-wrap{position:relative}
     .slider{
@@ -286,7 +287,7 @@
       padding:.2rem .5rem;border-radius:2px;border:1px solid rgba(201,169,110,.2);
     }
     .proj-body{padding:1.4rem;flex:1;display:flex;flex-direction:column}
-    .proj-body h3{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:600;margin-bottom:.4rem}
+    .proj-body h3{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:600;margin-bottom:.4rem;color:var(--gold2)}
     .proj-body p{color:var(--muted2);font-size:.84rem;line-height:1.7;flex:1}
     .proj-foot{display:flex;gap:.35rem;flex-wrap:wrap;margin-top:1.1rem}
     .proj-link{
@@ -298,7 +299,7 @@
     }
     .proj-link:hover{background:rgba(201,169,110,.2)}
 
-    /* ── CONTACT ── */
+    /* ── Contact ── */
     #contact{padding:7rem 5%;background:var(--bg)}
     .contact-wrap{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
     @media(max-width:768px){.contact-wrap{grid-template-columns:1fr;gap:3rem}}
@@ -326,7 +327,6 @@
     }
     .quote-block cite{font-size:.75rem;color:var(--muted);font-style:normal;font-family:'JetBrains Mono',monospace}
 
-    /* ── FOOTER ── */
     footer{
       text-align:center;padding:2rem 5%;
       border-top:1px solid var(--border);
@@ -334,7 +334,6 @@
     }
     footer span{color:var(--gold)}
 
-    /* ── REVEAL ── */
     .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
     .reveal.visible{opacity:1;transform:none}
     @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
@@ -357,40 +356,37 @@
 
 <!-- HERO -->
 <section id="hero">
-  <div class="hero-bg-text">ENGINEER</div>
-
-  <!-- LEFT -->
+  <div class="hero-bg-text">LEARNER</div>
   <div class="hero-left">
-    <div class="hero-sup">IoT · Embedded · Builder</div>
+    <div class="hero-sup">IoT · Embedded · Learner</div>
     <h1>
       Moh.<br>
       <em>Ferdiansah</em>
     </h1>
     <p class="hero-desc">
-      Saya merancang <strong>sistem IoT dan robot</strong> yang benar-benar bekerja —
-      dari level sirkuit elektronik hingga antarmuka pengguna.
+      Saya sedang belajar merancang <strong>sistem IoT dan robot</strong>. 
+      Ini beberapa proyek yang sudah saya coba buat — masih jauh dari sempurna, 
+      tapi saya belajar banyak dari setiap prosesnya.
     </p>
     <div class="hero-cta">
-      <a href="#projects" class="btn btn-gold">Lihat Projects</a>
+      <a href="#projects" class="btn btn-gold">Lihat Projek</a>
       <a href="#contact" class="btn btn-ghost">Hubungi Saya</a>
     </div>
     <div class="hero-stats">
       <div>
         <div class="hstat-num">IoT</div>
-        <div class="hstat-label">Spesialisasi</div>
+        <div class="hstat-label">Fokus belajar</div>
       </div>
       <div>
-        <div class="hstat-num">5+</div>
-        <div class="hstat-label">Projects</div>
+        <div class="hstat-num">6</div>
+        <div class="hstat-label">Projek (belajar)</div>
       </div>
       <div>
         <div class="hstat-num">∞</div>
-        <div class="hstat-label">Curiosity</div>
+        <div class="hstat-label">Rasa ingin tahu</div>
       </div>
     </div>
   </div>
-
-  <!-- RIGHT — FOTO -->
   <div class="hero-right">
     <img class="hero-photo" src="foto-profil.jpg" alt="Moh. Ferdiansah"
          onerror="this.style.display='none';document.querySelector('.photo-placeholder').style.display='flex'">
@@ -398,7 +394,7 @@
       <span>🧑‍💻</span>
       <p>Foto profil kamu akan tampil di sini<br>Rename foto jadi <code>foto-profil.jpg</code><br>lalu upload ke folder yang sama</p>
     </div>
-    <div class="corner-label">Available for freelance ✦</div>
+    <div class="corner-label">Open to work ✦</div>
   </div>
 </section>
 
@@ -406,21 +402,25 @@
 <section id="about">
   <div class="reveal">
     <p class="sec-eyebrow">Tentang Saya</p>
-    <h2>Engineer di dua dunia</h2>
+    <h2>Masih belajar, tapi sudah mulai mencoba</h2>
     <div class="divider"></div>
   </div>
   <div class="about-grid">
     <div class="about-text reveal">
-      <p>Saya <strong>Moh. Ferdiansah</strong>, seorang engineer yang bekerja di persimpangan <strong>hardware dan software</strong>. Saya membangun sistem IoT seperti <strong>VertexPark Smart Parking</strong> dengan protokol MQTT, robot otonom berbasis <strong>ESP8266</strong> untuk menghindari halangan, serta aplikasi web dan Android yang fungsional.</p>
-      <p>Saya percaya bahwa teknologi terbaik adalah yang menyelesaikan masalah nyata — dari palang parkir yang terkendali jarak, hingga landing page bisnis kuliner yang terhubung dengan pelanggan. Setiap proyek yang saya kerjakan selalu berorientasi pada dampak dan kegunaan.</p>
-      <p>Saya terus berkembang, terutama di area backend deployment dan integrasi API — karena engineer yang baik tahu batasannya dan tidak berhenti belajar.</p>
+      <p>Saya <strong>Moh. Ferdiansah</strong>. Saya masih di tahap awal belajar di dunia IoT dan embedded. Beberapa proyek yang sudah saya kerjakan:</p>
+      <p>
+        • <strong>VertexPark</strong> — sistem parkir dengan sensor jarak dan kontrol palang (masih belajar soal MQTT)<br>
+        • <strong>Robot penghindar obstekel</strong> — robot sederhana pakai ESP8266, sensor ultrasonik, dan servo<br>
+        • <strong>Beberapa web sederhana</strong> (Todoist, Sempol Makmur, Keuangan Pribadi) — latihan frontend dan logika
+      </p>
+      <p>Saya sadar masih banyak yang harus dipelajari — terutama di backend dan deployment. Tapi saya tidak malu untuk menunjukkan apa yang sudah saya coba, sekalipun hasilnya masih sederhana.</p>
       <div class="terminal">
-        <div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div><span class="t-file">ferdi@portfolio ~ skills.json</span></div>
+        <div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div><span class="t-file">ferdi@portfolio ~ status.json</span></div>
         <div class="t-body">
-          <div><span class="tp">const </span><span class="tc">engineer</span> = {</div>
-          <div>&nbsp;&nbsp;<span class="to">strong</span>: [<span style="color:#c9a96e">"IoT"</span>, <span style="color:#c9a96e">"Robotics"</span>, <span style="color:#c9a96e">"Frontend"</span>],</div>
-          <div>&nbsp;&nbsp;<span class="to">growing</span>: [<span style="color:#c9a96e">"API"</span>, <span style="color:#c9a96e">"Deploy"</span>, <span style="color:#c9a96e">"UI Design"</span>],</div>
-          <div>&nbsp;&nbsp;<span class="to">status</span>: <span style="color:#7ab89a">"open to work ✓"</span></div>
+          <div><span class="tp">const </span><span class="tc">me</span> = {</div>
+          <div>&nbsp;&nbsp;<span class="to">status</span>: <span style="color:#7ab89a">"masih belajar"</span>,</div>
+          <div>&nbsp;&nbsp;<span class="to">projek</span>: <span style="color:#c9a96e">6 (saya kerjakan sendiri)</span>,</div>
+          <div>&nbsp;&nbsp;<span class="to">motivasi</span>: <span style="color:#c9a96e">"penasaran & mau coba"</span></div>
           <div>}</div>
         </div>
       </div>
@@ -428,7 +428,7 @@
     <div class="photo-grid reveal">
       <div class="pslot tall">
         <img src="alat-utama.jpg" alt="Alat utama" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <div class="pslot-inner" style="display:none"><span>🔌</span><p>Foto robot / alat IoT utama<br><code>alat-utama.jpg</code></p></div>
+        <div class="pslot-inner" style="display:none"><span>🔌</span><p>Foto perangkat yang saya pakai belajar<br><code>alat-utama.jpg</code></p></div>
         <div class="pslot-label">📁 alat-utama.jpg</div>
       </div>
       <div class="pslot short">
@@ -448,8 +448,8 @@
 <!-- SKILLS -->
 <section id="skills">
   <div class="reveal">
-    <p class="sec-eyebrow">Keahlian</p>
-    <h2>Dari chip ke layar</h2>
+    <p class="sec-eyebrow">Keahlian (yang sedang saya pelajari)</p>
+    <h2>Apa yang sudah saya coba</h2>
     <div class="divider"></div>
   </div>
   <div class="skill-grid reveal">
@@ -457,41 +457,40 @@
       <div class="sk-num">01</div>
       <div class="sk-icon">🔌</div>
       <h3>IoT & Embedded</h3>
-      <p>Merancang logika kendali untuk perangkat IoT. Ini keahlian inti saya.</p>
+      <p>Saya baru mulai. Sudah coba pakai Arduino, ESP8266, dan beberapa sensor. Masih banyak yang harus dipelajari.</p>
       <div class="skill-tags">
-        <span class="tag tg">Arduino</span><span class="tag tg">ESP32</span>
-        <span class="tag tg">ESP8266</span><span class="tag tg">Embedded C</span>
-        <span class="tag tg">MQTT</span><span class="tag tg">Sensor</span>
+        <span class="tag tg">Arduino</span><span class="tag tg">ESP8266</span>
+        <span class="tag tg">Embedded C</span><span class="tag tg">Sensor</span>
       </div>
     </div>
     <div class="skill-card">
       <div class="sk-num">02</div>
       <div class="sk-icon">🤖</div>
       <h3>Robotika</h3>
-      <p>Membangun robot otonom dengan logika kendali yang efisien dan responsif.</p>
+      <p>Saya sudah bikin robot penghindar halangan sederhana. Masih dasar, tapi saya paham logika kendali motornya.</p>
       <div class="skill-tags">
-        <span class="tag tm2">Motor Control</span><span class="tag tm2">Servo</span>
-        <span class="tag tm2">Sensor Ultrasonik</span><span class="tag tm2">Navigasi</span>
+        <span class="tag tm2">Motor DC</span><span class="tag tm2">Servo</span>
+        <span class="tag tm2">Sensor Ultrasonik</span>
       </div>
     </div>
     <div class="skill-card">
       <div class="sk-num">03</div>
       <div class="sk-icon">📱</div>
-      <h3>Android & Frontend</h3>
-      <p>Kuat di implementasi alur & layout. Terus berkembang di sisi desain visual.</p>
+      <h3>Frontend & Android</h3>
+      <p>Saya cukup nyaman bikin tampilan web dan aplikasi sederhana. Ini yang paling sering saya latih.</p>
       <div class="skill-tags">
-        <span class="tag ts">Android Studio</span><span class="tag ts">XML</span>
         <span class="tag ts">HTML/CSS</span><span class="tag ts">JavaScript</span>
+        <span class="tag ts">Android Studio</span><span class="tag ts">XML</span>
       </div>
     </div>
     <div class="skill-card">
       <div class="sk-num">04</div>
       <div class="sk-icon">🌐</div>
       <h3>Web Backend</h3>
-      <p>Familiar dengan Laravel. Sedang memperdalam deployment dan integrasi API.</p>
+      <p>Saya baru coba-coba Laravel. Belum paham dalam-dalam, tapi saya sedang belajar.</p>
       <div class="skill-tags">
         <span class="tag tw">Laravel</span><span class="tag tw">PHP</span>
-        <span class="tag tw">MySQL</span><span class="tag tw">Deployment</span>
+        <span class="tag tw">MySQL</span>
       </div>
     </div>
   </div>
@@ -500,9 +499,14 @@
 <!-- PROJECTS -->
 <section id="projects">
   <div class="reveal">
-    <p class="sec-eyebrow">Projects</p>
-    <h2>Yang sudah dibuat</h2>
+    <p class="sec-eyebrow">Projek</p>
+    <h2>Yang sudah saya coba buat</h2>
     <div class="divider"></div>
+    <p style="color:var(--muted2);font-size:.9rem;margin-bottom:2rem;max-width:600px;">
+      Setiap proyek di sini adalah hasil belajar saya. Ada yang masih sederhana, 
+      ada yang masih perlu banyak perbaikan. Tapi semuanya saya kerjakan sendiri 
+      dan saya pelajari dari nol.
+    </p>
   </div>
   <div class="slider-wrap reveal">
     <div class="slider" id="slider">
@@ -517,15 +521,15 @@
         </div>
         <div class="proj-body">
           <h3>Todoist</h3>
-          <p>Aplikasi pengelola tugas harian dengan antarmuka sederhana dan fungsional.</p>
+          <p>Aplikasi daftar tugas harian. Saya buat untuk latihan logika JavaScript dan penyimpanan lokal.</p>
           <div class="proj-foot">
             <span class="tag ts">HTML/CSS</span><span class="tag ts">JavaScript</span>
           </div>
-          <a href="https://sayaperdiasah-sketch.github.io/Todolist/" target="_blank" class="proj-link">🔗 Lihat Project</a>
+          <a href="https://sayaperdiasah-sketch.github.io/Todolist/" target="_blank" class="proj-link">🔗 Lihat</a>
         </div>
       </div>
 
-      <!-- Project 2: VertexPark Smart Parking -->
+      <!-- Project 2: VertexPark -->
       <div class="proj-card">
         <div class="proj-thumb">
           <img src="project-vertexpark.jpg" alt="VertexPark" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
@@ -535,31 +539,31 @@
         </div>
         <div class="proj-body">
           <h3>VertexPark · IoT Smart Parking</h3>
-          <p>Sistem parkir pintar dengan kontrol palang berbasis MQTT dan sensor jarak real-time. Dilengkapi dashboard monitoring dan grafik data.</p>
+          <p>Sistem parkir dengan sensor jarak dan kontrol palang pakai MQTT. Masih belajar integrasi dan stabilitasnya.</p>
           <div class="proj-foot">
             <span class="tag tg">ESP8266</span><span class="tag tg">MQTT</span>
-            <span class="tag tm2">Sensor Ultrasonik</span><span class="tag ts">Dashboard</span>
+            <span class="tag tm2">Sensor Ultrasonik</span>
           </div>
-          <a href="https://bucolic-cannoli-cb8f03.netlify.app/" target="_blank" class="proj-link">🔗 Lihat Project</a>
+          <a href="https://bucolic-cannoli-cb8f03.netlify.app/" target="_blank" class="proj-link">🔗 Lihat</a>
         </div>
       </div>
 
       <!-- Project 3: Robot Penghindaran Obstekel -->
       <div class="proj-card">
         <div class="proj-thumb">
-          <img src="project-robot.jpg" alt="Robot Penghindaran Obstekel" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <img src="project-robot.jpg" alt="Robot" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
           <div class="proj-ph" style="display:none"><span>🤖</span><p>Robot Penghindaran Obstekel<br><code>project-robot.jpg</code></p></div>
           <div class="proj-overlay"></div>
           <div class="proj-fn">📁 project-robot.jpg</div>
         </div>
         <div class="proj-body">
           <h3>Robot Penghindaran Obstekel</h3>
-          <p>Robot otonom berbasis ESP8266 yang menggunakan Sensor Ultrasonik dan Servo untuk mendeteksi serta menghindari halangan secara real-time. Dikontrol dengan Arduino IDE.</p>
+          <p>Robot otonom pakai ESP8266, sensor ultrasonik, dan servo. Masih sederhana, tapi saya paham logika dasarnya.</p>
           <div class="proj-foot">
             <span class="tag tg">ESP8266</span><span class="tag tm2">Ultrasonik</span>
-            <span class="tag tm2">Servo</span><span class="tag tg">Arduino IDE</span>
+            <span class="tag tm2">Servo</span>
           </div>
-          <a href="https://github.com/sayaperdiasah-sketch/Robot-penghindar-obstekel-.git" target="_blank" class="proj-link">🔗 Lihat Project</a>
+          <a href="https://github.com/sayaperdiasah-sketch/Robot-penghindar-obstekel-.git" target="_blank" class="proj-link">🔗 Lihat</a>
         </div>
       </div>
 
@@ -573,31 +577,47 @@
         </div>
         <div class="proj-body">
           <h3>Sempol Makmur</h3>
-          <p>Landing page untuk bisnis kuliner Sempol Kampung · Rasa Bintang. Dilengkapi dengan survei pelanggan untuk mengetahui preferensi porsi, rasa, dan alamat pengiriman.</p>
+          <p>Landing page untuk bisnis kuliner. Saya belajar bikin tampilan yang informatif dan form survei sederhana.</p>
           <div class="proj-foot">
             <span class="tag ts">HTML/CSS</span><span class="tag ts">JavaScript</span>
-            <span class="tag tw">Landing Page</span>
           </div>
-          <a href="https://sayaperdiasah-sketch.github.io/sempol_makmur/" target="_blank" class="proj-link">🔗 Lihat Project</a>
+          <a href="https://sayaperdiasah-sketch.github.io/sempol_makmur/" target="_blank" class="proj-link">🔗 Lihat</a>
         </div>
       </div>
 
       <!-- Project 5: Keuangan Pribadi -->
       <div class="proj-card">
         <div class="proj-thumb">
-          <img src="project-keuangan.jpg" alt="Keuangan Pribadi" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <img src="project-keuangan.jpg" alt="Keuangan" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
           <div class="proj-ph" style="display:none"><span>💰</span><p>Keuangan Pribadi<br><code>project-keuangan.jpg</code></p></div>
           <div class="proj-overlay"></div>
           <div class="proj-fn">📁 project-keuangan.jpg</div>
         </div>
         <div class="proj-body">
           <h3>Keuangan Pribadi</h3>
-          <p>Aplikasi pencatatan keuangan pribadi dengan fitur saldo, pemasukan, pengeluaran, target tabungan, dan riwayat transaksi.</p>
+          <p>Aplikasi catatan keuangan. Saya belajar bikin dashboard sederhana untuk saldo, pemasukan, dan pengeluaran.</p>
           <div class="proj-foot">
             <span class="tag ts">HTML/CSS</span><span class="tag ts">JavaScript</span>
-            <span class="tag tw">Dashboard</span>
           </div>
-          <a href="https://sayaperdiasah-sketch.github.io/Tabungan01/" target="_blank" class="proj-link">🔗 Lihat Project</a>
+          <a href="https://sayaperdiasah-sketch.github.io/Tabungan01/" target="_blank" class="proj-link">🔗 Lihat</a>
+        </div>
+      </div>
+
+      <!-- Project 6: Aplikasi Android -->
+      <div class="proj-card">
+        <div class="proj-thumb">
+          <img src="project-android.jpg" alt="Android" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="proj-ph" style="display:none"><span>📱</span><p>Aplikasi Android<br><code>project-android.jpg</code></p></div>
+          <div class="proj-overlay"></div>
+          <div class="proj-fn">📁 project-android.jpg</div>
+        </div>
+        <div class="proj-body">
+          <h3>Aplikasi Android</h3>
+          <p>Aplikasi Android yang saya buat untuk latihan. Masih sederhana, tapi saya belajar banyak tentang layout dan logika.</p>
+          <div class="proj-foot">
+            <span class="tag ts">Android Studio</span><span class="tag ts">Java</span>
+          </div>
+          <a href="ferdiansah-app-v1.apk" download class="proj-link">⬇ Download APK</a>
         </div>
       </div>
 
@@ -606,6 +626,7 @@
       <button class="sl-btn" id="sl-prev">&#8592;</button>
       <div class="sl-dots" id="sl-dots">
         <span class="sl-dot active"></span>
+        <span class="sl-dot"></span>
         <span class="sl-dot"></span>
         <span class="sl-dot"></span>
         <span class="sl-dot"></span>
@@ -621,9 +642,9 @@
   <div class="contact-wrap">
     <div class="contact-left reveal">
       <p class="sec-eyebrow">Kontak</p>
-      <h2>Mari ngobrol</h2>
+      <h2>Mari kenalan</h2>
       <div class="divider"></div>
-      <p>Punya project IoT, butuh developer Android, atau mau diskusi soal embedded system? Saya terbuka untuk kolaborasi, freelance, maupun kesempatan kerja.</p>
+      <p>Saya terbuka untuk belajar bareng, diskusi, atau sekadar kenalan. Masih pemula, tapi saya senang kalau bisa bertukar pikiran dengan orang lain.</p>
       <div class="contact-links">
         <a href="mailto:mohferdiansah01@gmail.com" class="contact-link">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
@@ -645,23 +666,22 @@
     </div>
     <div class="reveal">
       <div class="quote-block">
-        <blockquote>"If it can be engineered, I'll figure it out."</blockquote>
-        <cite>— Moh. Ferdiansah, IoT & Embedded Engineer</cite>
+        <blockquote>"Masih belajar, tapi saya sudah mulai mencoba."</blockquote>
+        <cite>— Moh. Ferdiansah</cite>
       </div>
     </div>
   </div>
 </section>
 
 <footer>
-  <p>Built by <span>Moh. Ferdiansah</span> · 2025 · <span style="color:var(--muted)">IoT & Embedded Engineer</span></p>
+  <p>Dibuat oleh <span>Moh. Ferdiansah</span> · 2025 · <span style="color:var(--muted)">masih belajar, terus mencoba</span></p>
 </footer>
 
 <script>
-// Slider
 const slider = document.getElementById('slider');
 const dots = document.querySelectorAll('.sl-dot');
 let current = 0;
-const total = 5;
+const total = 6;
 
 function goTo(idx) {
   current = (idx + total) % total;
@@ -674,7 +694,6 @@ document.getElementById('sl-next').addEventListener('click', () => goTo(current 
 document.getElementById('sl-prev').addEventListener('click', () => goTo(current - 1));
 dots.forEach((d, i) => d.addEventListener('click', () => goTo(i)));
 
-// touch swipe
 let startX = 0;
 slider.addEventListener('touchstart', e => startX = e.touches[0].clientX);
 slider.addEventListener('touchend', e => {
