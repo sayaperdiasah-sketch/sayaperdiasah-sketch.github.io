@@ -49,7 +49,6 @@
     }
     @media(max-width:768px){#hero{grid-template-columns:1fr}}
 
-    /* big bg text */
     .hero-bg-text{
       position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
       font-family:'Cormorant Garamond',serif;
@@ -61,7 +60,6 @@
       animation:fadeIn 1.2s .3s both;
     }
 
-    /* left — text */
     .hero-left{
       position:relative;z-index:2;
       display:flex;flex-direction:column;justify-content:center;
@@ -109,7 +107,6 @@
     .hstat-num{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:600;color:var(--gold);line-height:1}
     .hstat-label{font-size:.72rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-top:.3rem}
 
-    /* right — FOTO */
     .hero-right{
       position:relative;z-index:2;overflow:hidden;
       opacity:0;animation:fadeIn .8s .5s forwards;
@@ -121,13 +118,11 @@
       width:100%;height:100%;object-fit:cover;object-position:top center;
       filter:grayscale(15%) contrast(1.05);
     }
-    /* overlay gradient */
     .hero-right::before{
       content:'';position:absolute;inset:0;z-index:1;
       background:linear-gradient(to right, var(--bg) 0%, transparent 30%),
                  linear-gradient(to top, var(--bg) 0%, transparent 25%);
     }
-    /* foto placeholder */
     .photo-placeholder{
       width:100%;height:100%;min-height:400px;
       display:flex;flex-direction:column;align-items:center;justify-content:center;
@@ -139,8 +134,6 @@
       color:var(--muted);text-align:center;padding:0 2rem;line-height:1.8;
     }
     .photo-placeholder code{color:var(--gold)}
-
-    /* corner label */
     .corner-label{
       position:absolute;top:2rem;right:2rem;z-index:3;
       font-family:'JetBrains Mono',monospace;font-size:.65rem;
@@ -166,7 +159,6 @@
     .about-text p strong{color:var(--white)}
     .about-text p em{color:var(--gold);font-style:normal}
 
-    /* terminal */
     .terminal{
       background:#080c10;border:1px solid var(--border);
       border-radius:6px;overflow:hidden;
@@ -180,7 +172,6 @@
     .t-body{padding:1.2rem;line-height:2}
     .tp{color:var(--mist)}.tc{color:var(--white)}.to{color:var(--sage)}.tm{color:var(--muted)}
 
-    /* photo grid */
     .photo-grid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
     .photo-grid .tall{grid-column:1/-1}
     .pslot{
@@ -271,6 +262,7 @@
       background:var(--card);border:1px solid var(--border);border-radius:4px;
       overflow:hidden;display:flex;flex-direction:column;
       transition:border-color .25s,transform .25s;
+      min-width:300px;flex:0 0 calc(33.333% - 1rem);
     }
     .proj-card:hover{border-color:rgba(201,169,110,.4);transform:translateY(-4px)}
     .proj-thumb{
@@ -297,6 +289,14 @@
     .proj-body h3{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:600;margin-bottom:.4rem}
     .proj-body p{color:var(--muted2);font-size:.84rem;line-height:1.7;flex:1}
     .proj-foot{display:flex;gap:.35rem;flex-wrap:wrap;margin-top:1.1rem}
+    .proj-link{
+      display:inline-flex;align-items:center;gap:.4rem;
+      margin-top:.8rem;padding:.5rem 1rem;border-radius:2px;
+      background:rgba(201,169,110,.1);border:1px solid rgba(201,169,110,.3);
+      color:var(--gold);font-size:.78rem;font-weight:500;text-decoration:none;
+      transition:all .2s;
+    }
+    .proj-link:hover{background:rgba(201,169,110,.2)}
 
     /* ── CONTACT ── */
     #contact{padding:7rem 5%;background:var(--bg)}
@@ -315,7 +315,6 @@
     .contact-link:hover svg{opacity:1}
     .cl-label{font-size:.7rem;color:var(--muted);display:block;margin-bottom:.1rem;font-family:'JetBrains Mono',monospace;letter-spacing:.08em}
 
-    /* quote block */
     .quote-block{
       border-left:2px solid var(--gold);padding:2rem 2rem;
       background:var(--card);border-radius:0 4px 4px 0;
@@ -381,8 +380,8 @@
         <div class="hstat-label">Spesialisasi</div>
       </div>
       <div>
-        <div class="hstat-num">3+</div>
-        <div class="hstat-label">Domain</div>
+        <div class="hstat-num">5+</div>
+        <div class="hstat-label">Projects</div>
       </div>
       <div>
         <div class="hstat-num">∞</div>
@@ -393,7 +392,6 @@
 
   <!-- RIGHT — FOTO -->
   <div class="hero-right">
-    <!-- GANTI: rename foto kamu jadi "foto-profil.jpg" dan upload ke folder yang sama -->
     <img class="hero-photo" src="foto-profil.jpg" alt="Moh. Ferdiansah"
          onerror="this.style.display='none';document.querySelector('.photo-placeholder').style.display='flex'">
     <div class="photo-placeholder" style="display:none">
@@ -413,9 +411,9 @@
   </div>
   <div class="about-grid">
     <div class="about-text reveal">
-      <p>Saya <strong>Moh. Ferdiansah</strong>, seorang engineer yang bekerja di persimpangan <strong>hardware dan software</strong>. Kekuatan utama saya ada di desain logika kendali untuk <em>sistem IoT dan robot ringan</em>.</p>
-      <p>Di sisi software, saya nyaman mengerjakan <strong>alur UI/UX dan frontend</strong> — baik di Android maupun web. Saya bisa membaca desain dan mengeksekusinya menjadi interface yang berfungsi.</p>
-      <p>Saya terus berkembang di area backend deployment dan integrasi API — karena engineer yang baik tahu batasannya dan tidak berhenti belajar.</p>
+      <p>Saya <strong>Moh. Ferdiansah</strong>, seorang engineer yang bekerja di persimpangan <strong>hardware dan software</strong>. Saya membangun sistem IoT seperti <strong>VertexPark Smart Parking</strong> dengan protokol MQTT, robot otonom berbasis <strong>ESP8266</strong> untuk menghindari halangan, serta aplikasi web dan Android yang fungsional.</p>
+      <p>Saya percaya bahwa teknologi terbaik adalah yang menyelesaikan masalah nyata — dari palang parkir yang terkendali jarak, hingga landing page bisnis kuliner yang terhubung dengan pelanggan. Setiap proyek yang saya kerjakan selalu berorientasi pada dampak dan kegunaan.</p>
+      <p>Saya terus berkembang, terutama di area backend deployment dan integrasi API — karena engineer yang baik tahu batasannya dan tidak berhenti belajar.</p>
       <div class="terminal">
         <div class="t-bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div><span class="t-file">ferdi@portfolio ~ skills.json</span></div>
         <div class="t-body">
@@ -462,17 +460,18 @@
       <p>Merancang logika kendali untuk perangkat IoT. Ini keahlian inti saya.</p>
       <div class="skill-tags">
         <span class="tag tg">Arduino</span><span class="tag tg">ESP32</span>
-        <span class="tag tg">Embedded C</span><span class="tag tg">Sensor</span>
+        <span class="tag tg">ESP8266</span><span class="tag tg">Embedded C</span>
+        <span class="tag tg">MQTT</span><span class="tag tg">Sensor</span>
       </div>
     </div>
     <div class="skill-card">
       <div class="sk-num">02</div>
       <div class="sk-icon">🤖</div>
       <h3>Robotika</h3>
-      <p>Membangun robot ringan dengan logika kendali yang efisien dan responsif.</p>
+      <p>Membangun robot otonom dengan logika kendali yang efisien dan responsif.</p>
       <div class="skill-tags">
         <span class="tag tm2">Motor Control</span><span class="tag tm2">Servo</span>
-        <span class="tag tm2">Sensor Array</span>
+        <span class="tag tm2">Sensor Ultrasonik</span><span class="tag tm2">Navigasi</span>
       </div>
     </div>
     <div class="skill-card">
@@ -482,7 +481,7 @@
       <p>Kuat di implementasi alur & layout. Terus berkembang di sisi desain visual.</p>
       <div class="skill-tags">
         <span class="tag ts">Android Studio</span><span class="tag ts">XML</span>
-        <span class="tag ts">HTML/CSS</span>
+        <span class="tag ts">HTML/CSS</span><span class="tag ts">JavaScript</span>
       </div>
     </div>
     <div class="skill-card">
@@ -492,7 +491,7 @@
       <p>Familiar dengan Laravel. Sedang memperdalam deployment dan integrasi API.</p>
       <div class="skill-tags">
         <span class="tag tw">Laravel</span><span class="tag tw">PHP</span>
-        <span class="tag tw">MySQL</span>
+        <span class="tag tw">MySQL</span><span class="tag tw">Deployment</span>
       </div>
     </div>
   </div>
@@ -508,52 +507,97 @@
   <div class="slider-wrap reveal">
     <div class="slider" id="slider">
 
-      <div class="proj-card" style="min-width:300px;flex:0 0 calc(33.333% - 1rem)">
+      <!-- Project 1: Todoist -->
+      <div class="proj-card">
         <div class="proj-thumb">
-          <img src="project-iot.jpg" alt="Project IoT" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-          <div class="proj-ph" style="display:none"><span>🤖</span><p>Foto/video project IoT<br><code>project-iot.jpg</code></p></div>
+          <img src="project-todoist.jpg" alt="Todoist" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="proj-ph" style="display:none"><span>📋</span><p>Todoist — task manager<br><code>project-todoist.jpg</code></p></div>
           <div class="proj-overlay"></div>
-          <div class="proj-fn">📁 project-iot.jpg</div>
+          <div class="proj-fn">📁 project-todoist.jpg</div>
         </div>
         <div class="proj-body">
-          <h3>Project IoT / Robot</h3>
-          <p>Tulis deskripsi singkat project ini — apa yang dibuat, masalah yang diselesaikan, teknologi yang dipakai.</p>
+          <h3>Todoist</h3>
+          <p>Aplikasi pengelola tugas harian dengan antarmuka sederhana dan fungsional.</p>
           <div class="proj-foot">
-            <span class="tag tg">Arduino/ESP32</span><span class="tag tm2">Sensor</span><span class="tag ts">Embedded C</span>
+            <span class="tag ts">HTML/CSS</span><span class="tag ts">JavaScript</span>
           </div>
+          <a href="https://sayaperdiasah-sketch.github.io/Todolist/" target="_blank" class="proj-link">🔗 Lihat Project</a>
         </div>
       </div>
 
-      <div class="proj-card" style="min-width:300px;flex:0 0 calc(33.333% - 1rem)">
+      <!-- Project 2: VertexPark Smart Parking -->
+      <div class="proj-card">
         <div class="proj-thumb">
-          <img src="project-android.jpg" alt="Project Android" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-          <div class="proj-ph" style="display:none"><span>📱</span><p>Screenshot aplikasi Android<br><code>project-android.jpg</code></p></div>
+          <img src="project-vertexpark.jpg" alt="VertexPark" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="proj-ph" style="display:none"><span>🅿️</span><p>VertexPark — IoT Smart Parking<br><code>project-vertexpark.jpg</code></p></div>
           <div class="proj-overlay"></div>
-          <div class="proj-fn">📁 project-android.jpg</div>
+          <div class="proj-fn">📁 project-vertexpark.jpg</div>
         </div>
         <div class="proj-body">
-          <h3>Aplikasi Android</h3>
-          <p>Tulis deskripsi aplikasi Android yang pernah kamu buat — fitur utama dan cara kerjanya.</p>
+          <h3>VertexPark · IoT Smart Parking</h3>
+          <p>Sistem parkir pintar dengan kontrol palang berbasis MQTT dan sensor jarak real-time. Dilengkapi dashboard monitoring dan grafik data.</p>
           <div class="proj-foot">
-            <span class="tag ts">Android Studio</span><span class="tag ts">Java</span><span class="tag tw">UI/UX</span>
+            <span class="tag tg">ESP8266</span><span class="tag tg">MQTT</span>
+            <span class="tag tm2">Sensor Ultrasonik</span><span class="tag ts">Dashboard</span>
           </div>
-          <a href="ferdiansah-app-v1.apk" download class="btn-apk">⬇ Download APK</a>
+          <a href="https://bucolic-cannoli-cb8f03.netlify.app/" target="_blank" class="proj-link">🔗 Lihat Project</a>
         </div>
       </div>
 
-      <div class="proj-card" style="min-width:300px;flex:0 0 calc(33.333% - 1rem)">
+      <!-- Project 3: Robot Penghindaran Obstekel -->
+      <div class="proj-card">
         <div class="proj-thumb">
-          <img src="project-web.jpg" alt="Project Web" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-          <div class="proj-ph" style="display:none"><span>🌐</span><p>Screenshot website<br><code>project-web.jpg</code></p></div>
+          <img src="project-robot.jpg" alt="Robot Penghindaran Obstekel" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="proj-ph" style="display:none"><span>🤖</span><p>Robot Penghindaran Obstekel<br><code>project-robot.jpg</code></p></div>
           <div class="proj-overlay"></div>
-          <div class="proj-fn">📁 project-web.jpg</div>
+          <div class="proj-fn">📁 project-robot.jpg</div>
         </div>
         <div class="proj-body">
-          <h3>Project Web / Laravel</h3>
-          <p>Tulis deskripsi project web yang pernah kamu kerjakan dan apa yang kamu pelajari.</p>
+          <h3>Robot Penghindaran Obstekel</h3>
+          <p>Robot otonom berbasis ESP8266 yang menggunakan Sensor Ultrasonik dan Servo untuk mendeteksi serta menghindari halangan secara real-time. Dikontrol dengan Arduino IDE.</p>
           <div class="proj-foot">
-            <span class="tag tw">Laravel</span><span class="tag tw">PHP</span><span class="tag ts">Frontend</span>
+            <span class="tag tg">ESP8266</span><span class="tag tm2">Ultrasonik</span>
+            <span class="tag tm2">Servo</span><span class="tag tg">Arduino IDE</span>
           </div>
+          <a href="https://github.com/sayaperdiasah-sketch/Robot-penghindar-obstekel-.git" target="_blank" class="proj-link">🔗 Lihat Project</a>
+        </div>
+      </div>
+
+      <!-- Project 4: Sempol Makmur -->
+      <div class="proj-card">
+        <div class="proj-thumb">
+          <img src="project-sempol.jpg" alt="Sempol Makmur" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="proj-ph" style="display:none"><span>🍢</span><p>Sempol Makmur<br><code>project-sempol.jpg</code></p></div>
+          <div class="proj-overlay"></div>
+          <div class="proj-fn">📁 project-sempol.jpg</div>
+        </div>
+        <div class="proj-body">
+          <h3>Sempol Makmur</h3>
+          <p>Landing page untuk bisnis kuliner Sempol Kampung · Rasa Bintang. Dilengkapi dengan survei pelanggan untuk mengetahui preferensi porsi, rasa, dan alamat pengiriman.</p>
+          <div class="proj-foot">
+            <span class="tag ts">HTML/CSS</span><span class="tag ts">JavaScript</span>
+            <span class="tag tw">Landing Page</span>
+          </div>
+          <a href="https://sayaperdiasah-sketch.github.io/sempol_makmur/" target="_blank" class="proj-link">🔗 Lihat Project</a>
+        </div>
+      </div>
+
+      <!-- Project 5: Keuangan Pribadi -->
+      <div class="proj-card">
+        <div class="proj-thumb">
+          <img src="project-keuangan.jpg" alt="Keuangan Pribadi" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="proj-ph" style="display:none"><span>💰</span><p>Keuangan Pribadi<br><code>project-keuangan.jpg</code></p></div>
+          <div class="proj-overlay"></div>
+          <div class="proj-fn">📁 project-keuangan.jpg</div>
+        </div>
+        <div class="proj-body">
+          <h3>Keuangan Pribadi</h3>
+          <p>Aplikasi pencatatan keuangan pribadi dengan fitur saldo, pemasukan, pengeluaran, target tabungan, dan riwayat transaksi.</p>
+          <div class="proj-foot">
+            <span class="tag ts">HTML/CSS</span><span class="tag ts">JavaScript</span>
+            <span class="tag tw">Dashboard</span>
+          </div>
+          <a href="https://sayaperdiasah-sketch.github.io/Tabungan01/" target="_blank" class="proj-link">🔗 Lihat Project</a>
         </div>
       </div>
 
@@ -562,6 +606,8 @@
       <button class="sl-btn" id="sl-prev">&#8592;</button>
       <div class="sl-dots" id="sl-dots">
         <span class="sl-dot active"></span>
+        <span class="sl-dot"></span>
+        <span class="sl-dot"></span>
         <span class="sl-dot"></span>
         <span class="sl-dot"></span>
       </div>
@@ -615,7 +661,7 @@
 const slider = document.getElementById('slider');
 const dots = document.querySelectorAll('.sl-dot');
 let current = 0;
-const total = 3;
+const total = 5;
 
 function goTo(idx) {
   current = (idx + total) % total;
